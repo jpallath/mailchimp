@@ -6,41 +6,6 @@ interface CommentPageProps {
   trigger: boolean;
   setTrigger: Function;
 }
-
-const CommentPage: React.FC<CommentPageProps> = ({ trigger, setTrigger }) => {
-  const [comments, setComments] = useState([
-    { _id: "", name: "", createdAt: new Date(), message: "" },
-  ]);
-  const fetchComments = async () => {
-    try {
-      const response = await fetchFunction("comments", "GET", {});
-
-      const comments = (await response?.json()) ?? [];
-      setComments(comments);
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchComments();
-  }, []);
-
-  useEffect(() => {
-    fetchComments();
-    setTrigger(false);
-  }, [trigger]);
-  return (
-    <div className="w-6/12 border-t-black border-t-4 flex flex-col items-center justify-center gap-y-4 py-4">
-      {comments.map((comment) => (
-        <Comment comment={comment} key={comment._id} />
-      ))}
-    </div>
-  );
-};
-
-export { CommentPage };
-
 interface CommentProp {
   comment: CommentItem;
 }
@@ -70,3 +35,36 @@ const Comment: React.FC<CommentProp> = ({ comment }) => {
     </div>
   );
 };
+
+const CommentPage: React.FC<CommentPageProps> = ({ trigger, setTrigger }) => {
+  const [comments, setComments] = useState([
+    { _id: "", name: "", createdAt: new Date(), message: "" },
+  ]);
+  const fetchComments = async () => {
+    try {
+      const response = await fetchFunction("comments", "GET", {});
+      const comments = (await response?.json()) ?? [];
+      setComments(comments);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  useEffect(() => {
+    fetchComments();
+    setTrigger(false);
+  }, [trigger]);
+  return (
+    <div className="w-6/12 border-t-black border-t-4 flex flex-col items-center justify-center gap-y-4 py-4">
+      {comments.map((comment) => (
+        <Comment comment={comment} key={comment._id} />
+      ))}
+    </div>
+  );
+};
+
+export { CommentPage };
