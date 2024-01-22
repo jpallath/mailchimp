@@ -12,6 +12,7 @@ export class CommentsService {
 
   async createNewComment(createCommentDto: CreateCommentDto) {
     try {
+      createCommentDto.createdAt = new Date();
       return this.commentModel.create(createCommentDto);
     } catch (error) {
       console.log(error);
@@ -21,7 +22,7 @@ export class CommentsService {
 
   async getAllComments() {
     try {
-      return await this.commentModel.find().exec();
+      return await this.commentModel.find().sort({ createdAt: -1 }).exec();
     } catch (error) {
       console.log(error);
       throw new Error('Failed to fetch comments');

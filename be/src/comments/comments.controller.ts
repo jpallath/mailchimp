@@ -16,7 +16,7 @@ export class CommentsController {
   }
   @Get(':id')
   async getComment(@Param() params: any) {
-    return await this.commentsService.getComment(params);
+    return await this.commentsService.getComment(params.id);
   }
 
   @Delete()
