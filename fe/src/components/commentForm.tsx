@@ -65,10 +65,12 @@ const CommentForm: React.FC<CommentFormProps> = ({ setTrigger }) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const submitComment = () => {
-    const body = { name, message: comment };
-    fetchFunction("comments", "POST", body);
-    setComment("");
-    setTrigger(true);
+    if (name && comment) {
+      const body = { name, message: comment };
+      fetchFunction("comments", "POST", body);
+      setComment("");
+      setTrigger(true);
+    }
   };
   return (
     <div className="flex flex-col gap-y-2.5 w-6/12 items-center">

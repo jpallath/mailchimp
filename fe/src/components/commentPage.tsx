@@ -11,7 +11,7 @@ const Comment: React.FC<CommentProp> = ({ comment }) => {
 
   return (
     <div
-      className="w-9/12 border-black border-2 cursor-pointer"
+      className="w-9/12 p-8 border-black border-2 cursor-pointer"
       onClick={() => handleOnClick(comment._id)}
     >
       <p className="font-semibold">{comment.message}</p>
