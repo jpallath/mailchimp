@@ -1,5 +1,5 @@
 import { Button } from "../@/components/ui/button";
-import { fetchFunction } from "../fetchFunction";
+import { fetchFunction } from "../functions";
 
 interface DeleteButtonProp {
   setTrigger: Function;
@@ -7,11 +7,7 @@ interface DeleteButtonProp {
 
 export const DeleteButton: React.FC<DeleteButtonProp> = ({ setTrigger }) => {
   const handleDelete = async () => {
-    const response = await fetchFunction(
-      "http://localhost:3001/comments",
-      "DELETE",
-      {}
-    );
+    const response = await fetchFunction("comments", "DELETE", {});
     if (response) {
       setTrigger(true);
     }

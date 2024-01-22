@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFunction } from "../fetchFunction";
+import { fetchFunction } from "../functions";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../@/components/ui/button";
 
@@ -12,17 +12,15 @@ export const SingleComment: React.FC = (props) => {
     createdAt: "",
   });
   const getComment = async () => {
-    const comment = await fetchFunction(
-      `http://localhost:3001/comments/${id}`,
-      "GET",
-      {}
-    ).then((res) => {
-      if (res) {
-        return res.json();
-      } else {
-        return null;
+    const comment = await fetchFunction(`comments/${id}`, "GET", {}).then(
+      (res) => {
+        if (res) {
+          return res.json();
+        } else {
+          return null;
+        }
       }
-    });
+    );
     setComment(comment[0]);
   };
   useEffect(() => {

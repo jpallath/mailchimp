@@ -9,12 +9,16 @@ import {
 import { Input } from "../@/components/ui/input";
 import { Button } from "../@/components/ui/button";
 import { Textarea } from "../@/components/ui/textarea";
-import { fetchFunction } from "../fetchFunction";
+import { fetchFunction } from "../functions";
 import { useState } from "react";
 
 interface InputProps {
   dataValue: string;
   updateValueFunction: Function;
+}
+
+interface CommentFormProps {
+  setTrigger: Function;
 }
 
 const NameInput: React.FC<InputProps> = ({
@@ -65,16 +69,12 @@ const CommentInput: React.FC<InputProps> = ({
   );
 };
 
-interface CommentFormProps {
-  setTrigger: Function;
-}
-
 const CommentForm: React.FC<CommentFormProps> = ({ setTrigger }) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const submitComment = () => {
     const body = { name, message: comment };
-    fetchFunction("http://localhost:3001/comments", "POST", body);
+    fetchFunction("comments", "POST", body);
     setComment("");
     setTrigger(true);
   };

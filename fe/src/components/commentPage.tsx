@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFunction } from "../fetchFunction";
+import { fetchFunction, formatDate } from "../functions";
 import { useNavigate } from "react-router-dom";
 
 interface CommentPageProps {
@@ -13,11 +13,7 @@ const CommentPage: React.FC<CommentPageProps> = ({ trigger, setTrigger }) => {
   ]);
   const fetchComments = async () => {
     try {
-      const response = await fetchFunction(
-        "http://localhost:3001/comments",
-        "GET",
-        {}
-      );
+      const response = await fetchFunction("comments", "GET", {});
 
       const comments = (await response?.json()) ?? [];
       setComments(comments);
@@ -58,30 +54,6 @@ interface CommentItem {
 
 const Comment: React.FC<CommentProp> = ({ comment }) => {
   const navigate = useNavigate();
-  const formatDate = (createdAt: Date) => {
-    const getTimes = (date: Date) => {
-      const hour = date.getHours();
-      const minute = date.getMinutes();
-      const amPm = hour < 12 ? "AM" : "PM";
-      const formattedHour = hour % 12 || 12;
-      return { minute, amPm, formattedHour };
-    };
-    const date = new Date(createdAt);
-    const now = new Date();
-    const differenceInDays =
-      Math.abs(now.getTime() - date.getTime()) / (1000 * 3600 * 24);
-    if (differenceInDays > 7) {
-      const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
-      const { formattedHour, minute, amPm } = getTimes(date);
-      return `${weekday} at ${formattedHour}:${minute} ${amPm}`;
-    } else {
-      const month = date.toLocaleDateString("en-US", { month: "long" });
-      const day = date.getDate();
-      const { formattedHour, minute, amPm } = getTimes(date);
-      return `${month} ${day} at ${formattedHour}:${minute} ${amPm}`;
-    }
-  };
-
   const handleOnClick = (commentId: string) => {
     navigate(`/comments/${commentId}`);
   };
