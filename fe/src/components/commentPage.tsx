@@ -1,21 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchFunction, formatDate } from "../functions";
 import { useNavigate } from "react-router-dom";
-
-interface CommentPageProps {
-  trigger: boolean;
-  setTrigger: Function;
-}
-interface CommentProp {
-  comment: CommentItem;
-}
-
-interface CommentItem {
-  name: string;
-  message: string;
-  createdAt: Date;
-  _id: string;
-}
+import { CommentItem, CommentPageProps, CommentProp } from "../interfaces";
 
 const Comment: React.FC<CommentProp> = ({ comment }) => {
   const navigate = useNavigate();

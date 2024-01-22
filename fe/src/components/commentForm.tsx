@@ -11,15 +11,7 @@ import { Button } from "../@/components/ui/button";
 import { Textarea } from "../@/components/ui/textarea";
 import { fetchFunction } from "../functions";
 import { useState } from "react";
-
-interface InputProps {
-  dataValue: string;
-  updateValueFunction: Function;
-}
-
-interface CommentFormProps {
-  setTrigger: Function;
-}
+import { InputProps, CommentFormProps } from "../interfaces";
 
 const NameInput: React.FC<InputProps> = ({
   dataValue,

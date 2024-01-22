@@ -1,9 +1,6 @@
 import { Button } from "../@/components/ui/button";
 import { fetchFunction } from "../functions";
-
-interface DeleteButtonProp {
-  setTrigger: Function;
-}
+import { DeleteButtonProp } from "../interfaces";
 
 export const DeleteButton: React.FC<DeleteButtonProp> = ({ setTrigger }) => {
   const handleDelete = async () => {
